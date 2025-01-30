@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator Using JS,HTML,CSS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+  <div class="container">
+    <div class="calculator">
+        <form name="calcForm">
+        <div class="display">
+            <input type="text" name="display" id="display" readonly/>
+        </div>
+        <div>
+            <input type="button" value="AC" class="operator">
+            <input type="button" value="%" class="operator">
+            <input type="button" value="DE" class="operator">
+            <input type="button" value="/">
+        </div>
+        <div>
+            <input type="button" value="7">
+            <input type="button" value="8">
+            <input type="button" value="9">
+            <input type="button" value="*">
+        </div>
+        <div>
+            <input type="button" value="4">
+            <input type="button" value="5">
+            <input type="button" value="6">
+            <input type="button" value="-">
+        </div>
+        <div>
+            <input type="button" value="1">
+            <input type="button" value="2">
+            <input type="button" value="3">
+            <input type="button" value="+">
+        </div>
+        <div>
+            <input type="button" value="00">
+            <input type="button" value="0">
+            <input type="button" value=".">
+            <input type="button" value="=">
+        </div>
+    </form>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const display = document.getElementById("display");
+        const buttons = document.querySelectorAll('input[type="button"]');
+        
+        buttons.forEach(button => {
+            button.addEventListener('click', function() {
+                const value = this.value;
+
+                if (value === 'AC') {
+                    clearDisplay();
+                } else if (value === 'DE') {
+                    deleteLast();
+                } else if (value === '=') {
+                    calculateResult();
+                } else {
+                    appendToDisplay(value);
+                }
+            });
+        });
+
+        function appendToDisplay(value) {
+            display.value += value;
+        }
+
+        function clearDisplay() {
+            display.value = "";
+        }
+
+        function deleteLast() {
+            display.value = display.value.slice(0, -1);
+        }
+
+        function calculateResult() {
+            try {
+                display.value = eval(display.value.replace('%', '/100'));
+            } catch (error) {
+                display.value = "Error";
+            }
+        }
+    });
+  </script>
+
+</body>
+</html>
